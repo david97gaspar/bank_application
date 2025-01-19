@@ -3,6 +3,8 @@ import json
 
 def remove_user(user_to_be_deleted: str, bank_path: str = "bank.json", auth_path: str = "auth.json" , clients_path: str = "clients.json"):
 
+
+    # here I need to change to make this more efficient
     with open(bank_path, "r") as f:
         accounts = json.loads(f.read())
 
