@@ -1,0 +1,18 @@
+{
+    "100": {
+        "value": 800,
+        "currency": "RON"
+    },
+    "101": {
+        "value": 1010,
+        "currency": "RON"
+    },
+    "102": {
+        "value": 2050.0,
+        "currency": "EUR"
+    },
+    "103": {
+        "value": 2310,
+        "currency": "RON"
+    }
+}
