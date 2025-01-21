@@ -1,6 +1,6 @@
 {
     "100": {
-        "value": 800,
+        "value": 1100,
         "currency": "RON"
     },
     "101": {
@@ -13,6 +13,10 @@
     },
     "103": {
         "value": 2310,
+        "currency": "RON"
+    },
+    "104": {
+        "value": 1000,
         "currency": "RON"
     }
 }

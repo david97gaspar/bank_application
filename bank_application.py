@@ -113,6 +113,47 @@ def transfer_money(sender: str, receiver: str, amount: int, bank_path: str = "ba
     else:
         print("Not enough money to send")
 
+def withdraw_money(user: str, amount: int, bank_path: str = "bank.json"):
+
+    try:
+        file = open(bank_path, "r")
+        accounts = json.load(file)
+        file.close()
+
+        if user in accounts:
+            if accounts[user]["value"] >= amount:
+                accounts[user]["value"] -= amount
+                file = open(bank_path, "w")
+                json.dump(accounts, file, indent=4)
+                file.close()
+                print(f"Ai scos cu succes {amount} {accounts[user]['currency']}. Sold nou: {accounts[user]['value']} {accounts[user]['currency']}.")
+            else:
+                print("Fonduri insuficiente.")
+        else:
+            print("Contul nu a fost gasit.")
+    except FileNotFoundError:
+        print("Error: Datele de banca nu au fost gasite.")
+
+def deposit_money(user: str, amount: int, bank_path: str = "bank.json"):
+
+    try:
+        file = open(bank_path, "r")
+        accounts = json.load(file)
+        file.close()
+
+        if user in accounts:
+            accounts[user]["value"] += amount
+            file = open(bank_path, "w")
+            json.dump(accounts, file, indent=4)
+            file.close()
+            print(f"Ati adaugat {amount} {accounts[user]['currency']}. Sold nou: {accounts[user]['value']} {accounts[user]['currency']}.")
+        else:
+            print("Contul nu a fost gasit.")
+    except FileNotFoundError:
+        print("Error: Datele de banca nu au fost gasite.")
+
+
+
 def get_username_by_phone(phone_number: str, clients_path: str = "clients.json"):
     with open(clients_path, "r") as f:
         clients = json.loads(f.read())
@@ -145,9 +186,11 @@ if __name__ == '__main__':
                         transfer_money(username, receiver_id, amount)
 
                 case "3":
-                    pass
+                    amount = int(input("Scrieti suma dorita: "))
+                    withdraw_money(username,amount)
                 case "4":
-                    pass
+                    amount = int(input("Scrieti suma dorita: "))
+                    deposit_money(username,amount)
                 case "5":
                     currency = input("Ce vrei sa transformi? ")
                     # verificati sa fie currency corect
@@ -171,7 +214,11 @@ if __name__ == '__main__':
                     admin_operations.remove_user(user_to_delete)
 
                 case "2":
-                    pass
+                    new_user = input("Scrie usernameul clientului: ")
+                    new_password = input("Scrie parola clientului: ")
+                    initial_balance = int(input("Scrie soldul clientului: "))
+                    currency = input("Scrie tipul de valuta a clientului: ")
+                    admin_operations.add_new_client(new_user, new_password, initial_balance, currency)
                 case "3":
                     username = input("Citeste un nou user: ")
                     username = login(username)
